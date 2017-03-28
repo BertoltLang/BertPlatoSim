@@ -1,0 +1,21 @@
+# PlatoSim3 configuration file for the PointSpreadFunctionTest
+# 
+# The input values in this file are specific for the PointSpreadFunctionTest, create a new input file
+# for testing other components.
+
+General:
+    # Location of the simulation project
+    ProjectLocation: ../
+
+PSF:
+
+    Model:                       FromFile        # Select the model to be used for the PSF [Gaussian, FromFile]
+    Gaussian:                                    # Generate the PSF from a 2D Gaussian function
+      Sigma:                     0.025           # Standard deviation of Gaussian PSF [pixels]
+      NumberOfPixels:            8               # The number of pixels in the field for which the PSF is generated
+    FromFile:                                    # Read a pre-calculated PSF from an HDF5 file
+      Filename:                  inputfiles/psf.hdf5 
+      DistanceToOA:              10              # The angular distance to the optical axis. -1 to auto-compute. [deg]
+      RotationAngle:             45              # The rotation angle with respect to the x-axis orientation of the focal plane. -1 to auto-compute. [deg]
+      NumberOfPixels:            8               # The number of pixels in the field for which the PSF is generated
+

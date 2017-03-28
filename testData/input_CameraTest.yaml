@@ -1,0 +1,76 @@
+# PlatoSim3 configuration file for the CameraTest
+# 
+# The input values in this file are specific for the CameraTest, create a new input file
+# for testing other components.
+---
+
+General:
+    
+    ProjectLocation:         ../
+
+ObservingParameters:
+
+    RApointing:              0.0             # [deg] 
+    DecPointing:             0.0             # [deg]
+    Fluxm0:                 1.00238e8        # Photon flux of a V=0 G2V-star                                 [phot/s/m^2/nm]
+    SkyBackground:           220.            # Stellar + zodiacal background level. Set negative to compute. [photons/s]
+    StarCatalogFile:         testData/starcatalog.txt
+
+Platform:
+
+    UseJitter:               yes             # yes or no
+    UseJitterFromFile:       no              # yes or no
+    JitterYawRms:            2.3             # [arcsec]
+    JitterPitchRms:          2.3             # [arcsec]
+    JitterRollRms:           2.3             # [arcsec]
+    JitterTimeScale:         3600.           # [s]
+    JitterFileName:          testData/jitter.txt
+
+Telescope:
+    
+    AzimuthAngle:            135.0           # Azimuth angle of telescope on the platform [deg]
+    TiltAngle:               9.2             # Tilt angle of the telescope on the platform [deg]
+    LightCollectingArea:     113.1           # Effective area of 1 telescope [cmˆ2]
+    TransmissionEfficiency:  0.757           # in [0,1]
+    UseDrift:                no              # yes or no
+    UseDriftFromFile:        no              # yes or no
+    DriftYawRms:             2.3             # RMS of thermo-elastic drift in yaw [arcsec]
+    DriftPitchRms:           2.3             # RMS of thermo-elastic drift in pitch [arcsec]
+    DriftRollRms:            2.3             # RMS of thermo-elastic drift in roll [arcsec]
+    DriftTimeScale:          3600.           # Timescale of thermo-elastic drift [s]
+    DriftFileName:           inputfiles/drift.txt
+
+Camera:
+    
+    FocalPlaneOrientation:   0.0             # [degrees]
+    PlateScale:              0.8333          # [arcsec/micron]
+    FocalLength:             0.24712595      # [m]
+    ThroughputBandwidth:     650             # FWHM [nm]
+    ThroughputLambdaC:       550             # Central wavelength of the throughput passband [nm]
+    IncludeFieldDistortion:  yes             # Wheter or not to include field distortion
+    FieldDistortion:                         # Describe the model for the field distortion
+        Type:                Polynomial1D
+        Degree:              3
+        Coefficients:        [-0.0036696919678, 1.0008542317, -4.12553764817e-05, 5.7201219949e-06]
+        InverseCoefficients: [-0.00458067036444, 1.00110311283, -5.61136295937e-05, -4.311925329e-06]
+
+PSF:
+
+    Model:                       FromFile        # Select the model to be used for the PSF [Gaussian, FromFile]
+    Gaussian:                                    # Generate the PSF from a 2D Gaussian function
+      Sigma:                     0.025           # Standard deviation of Gaussian PSF [pixels]
+      NumberOfPixels:            8               # The number of pixels in the field for which the PSF is generated
+    FromFile:                                    # Read a pre-calculated PSF from an HDF5 file
+      Filename:                  inputfiles/psf.hdf5 
+      DistanceToOA:              10              # The angular distance to the optical axis. -1 to auto-compute. [deg]
+      RotationAngle:             45              # The rotation angle with respect to the x-axis orientation of the focal plane. -1 to auto-compute. [deg]
+      NumberOfPixels:            8               # The number of pixels in the field for which the PSF is generated
+
+RandomSeeds:
+
+    ReadOutNoiseSeed:        1424949740      # Unique positive integer 
+    PhotonNoiseSeed:         1433320336      # Unique positive integer 
+    JitterSeed:              1433320381      # Unique positive integer 
+    FlatFieldSeed:           1425284070      # Unique positive integer 
+    CTESeed:                 1424949740      # Unique positive integer 
+    DriftSeed:               1433429158      # Unique positive integer 
